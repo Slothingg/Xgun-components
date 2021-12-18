@@ -29,4 +29,13 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
+  .title-1{
+    font-size: 18px;
+    font-weight: bold;
+    padding: 10px;
+  }
+  .codemirror{
+    width: 100%;
+    height: 100%;
+  }
 </style>

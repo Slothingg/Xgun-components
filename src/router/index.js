@@ -9,6 +9,11 @@ export default new Router({
       path: '/',
       name: 'index',
       component: ()=>import("@/pages/instructions.vue")
+    },
+    {
+      path: '/media',
+      name: 'media',
+      component: ()=>import("@/pages/media.vue")
     }
   ]
 })

@@ -6,8 +6,29 @@ import router from './router'
 import 'amfe-flexible'
 import ViewUI from 'view-design';
 import 'view-design/dist/styles/iview.css';
+import 'codemirror/lib/codemirror.css'
+import 'codemirror/theme/base16-dark.css'
+import codemirror  from "vue-codemirror"
 
 Vue.use(ViewUI);
+Vue.use(codemirror);
+
+//个人组件
+import phone from '@/components/phone.vue'
+import media from '@/components/media.vue'
+import flexBox from '@/components/flexBox.vue'
+import titleSub from '@/components/titleSub.vue'
+import text from '@/components/text.vue'
+import apiTable from '@/components/apiTable.vue'
+import eventTable from '@/components/eventTable.vue'
+
+Vue.component('phone',phone)
+Vue.component('media',media)
+Vue.component('flexBox',flexBox)
+Vue.component('titleSub',titleSub)
+Vue.component('text-sub',text)
+Vue.component('apiTable',apiTable)
+Vue.component('eventTable',eventTable)
 
 Vue.config.productionTip = false
 
@@ -15,6 +36,8 @@ Vue.config.productionTip = false
 new Vue({
   el: '#app',
   router,
-  components: { App },
+  components: {
+    App
+  },
   template: '<App/>'
 })

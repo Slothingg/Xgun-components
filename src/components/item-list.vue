@@ -44,6 +44,7 @@
     top: 0;
     width: 120px;
     height: 100vh;
+    background-color: white;
   }
   .logo{
     width: 100%;
@@ -69,7 +70,6 @@
 <style scoped="scoped">
   @media screen and (max-width: 860px){
     .nav-list{
-      width: 260px;
     }
     >>>.ivu-menu-vertical .ivu-menu-item, >>>.ivu-menu-vertical .ivu-menu-submenu-title{
       padding: 10px 60px;
