@@ -15,5 +15,7 @@
     flex-direction: column;
     justify-content: flex-start;
     padding: 10px;
+    overflow: hidden;
+    font-size: 8px;
   }
 </style>

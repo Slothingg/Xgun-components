@@ -21,6 +21,7 @@ import titleSub from '@/components/titleSub.vue'
 import text from '@/components/text.vue'
 import apiTable from '@/components/apiTable.vue'
 import eventTable from '@/components/eventTable.vue'
+import slotTable from '@/components/slotTable.vue'
 
 Vue.component('phone',phone)
 Vue.component('media',media)
@@ -29,6 +30,7 @@ Vue.component('titleSub',titleSub)
 Vue.component('text-sub',text)
 Vue.component('apiTable',apiTable)
 Vue.component('eventTable',eventTable)
+Vue.component('slotTable',slotTable)
 
 Vue.config.productionTip = false
 

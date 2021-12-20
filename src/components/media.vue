@@ -26,7 +26,19 @@
     <div class="xg-media-content">
       <span class="content" v-html="item.content ? item.content : '暂无内容'"></span>
     </div>
-    <div class="xg-media-foot" :style="'color:'+ theme ">
+    <slot name="media"></slot>
+    <div class="comment" @click.stop="chat">
+      <svg fill="currentColor" class="svg" viewBox="0 0 16 16">
+        <path
+          d="M14 1a1 1 0 0 1 1 1v8a1 1 0 0 1-1 1H4.414A2 2 0 0 0 3 11.586l-2 2V2a1 1 0 0 1 1-1h12zM2 0a2 2 0 0 0-2 2v12.793a.5.5 0 0 0 .854.353l2.853-2.853A1 1 0 0 1 4.414 12H14a2 2 0 0 0 2-2V2a2 2 0 0 0-2-2H2z" />
+        <path d="M5 6a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0zm4 0a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" />
+      </svg>
+      <div class="comment-content">
+        <span class="comment-user">{{item.comment.username}}:</span>
+        {{item.comment.content}}
+      </div>
+    </div>
+    <div class="xg-media-foot" v-if="!order_tools" :style="'color:'+ theme ">
       <div class="tools" @click.stop="zan">
         <svg fill="currentColor" class="svg" viewBox="0 0 16 16" v-show="!item.already_zan">
           <path
@@ -63,6 +75,7 @@
         <span>{{item.num_share}}</span>
       </div>
     </div>
+    <slot name="tool" class="xg-media-foot" v-else></slot>
   </div>
 </template>
 
@@ -89,17 +102,25 @@
             already_chat: false,
             num_chat: 0,
             already_share: false,
-            num_share: 0
+            num_share: 0,
+            comment: {
+              username: '',
+              content: ''
+            },
           }
         }
+      },
+      order_tools:{
+        type:Boolean,
+        default:false
       },
       theme: {
         type: String,
         default: 'black'
       },
-      backgroundUrl:{
-        type:String,
-        default:''
+      backgroundUrl: {
+        type: String,
+        default: ''
       }
     },
     methods: {
@@ -152,7 +173,7 @@
     -ms-user-select: none;
 
     user-select: none;
-    background-size: 100% 100%;
+    background-size: 100% 100% !important;
   }
 
   .xg-media-box .xg-media-head {
@@ -195,7 +216,6 @@
   }
 
   .xg-media-head-buttom {
-    width: 40%;
     height: 100%;
     margin-right: 5px;
     display: flex;
@@ -204,7 +224,7 @@
   }
 
   .xg-media-head-buttom .buttom {
-    width: 50%;
+    width: 40px;
     height: 20px;
     line-height: 20px;
     text-align: center;
@@ -234,6 +254,41 @@
     white-space: pre-wrap;
   }
 
+  .xg-media-box .comment {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    min-height: 24px;
+    width: 90%;
+    margin-left: 10px;
+    border-left: solid 2px #b4b4b4;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .xg-media-box .comment .svg {
+    width: 12px;
+    height: 12px;
+    color: #4a4a4a;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .xg-media-box .comment .comment-content {
+    max-height: 48px;
+    width: 100%;
+    display: inline-block;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    overflow: hidden;
+  }
+
+  .xg-media-box .comment .comment-content .comment-user {
+    font-weight: bold;
+    margin-right: 20rpx;
+  }
+
   .xg-media-foot {
     display: flex;
     flex-direction: row;
@@ -255,9 +310,25 @@
     width: 40%;
     height: 40%;
   }
-</style>
 
-<style scoped>
-  @media screen and (min-width:750px) {
+  @media screen and (max-width: 750px) {
+    .xg-media-box .xg-media-head{
+      height: 120px ;
+    }
+    .xg-media-box .xg-media-head{
+      justify-content: space-between;
+    }
+    .xg-media-foot{
+      height: 80px;
+    }
+    .xg-media-content{
+      font-size: 18px;
+    }
+    .xg-media-head-buttom .buttom{
+      height: 48px;
+      width: 120px;
+      line-height: 48px;
+      font-size: 12px;
+    }
   }
 </style>

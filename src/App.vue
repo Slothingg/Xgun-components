@@ -1,6 +1,8 @@
 <template>
   <div id="app">
-    <sideBar></sideBar>
+    <transition>
+      <sideBar></sideBar>
+    </transition>
     <transition>
       <router-view />
     </transition>
@@ -11,7 +13,7 @@
   import sideBar from '@/components/item-list.vue'
   export default {
     name: 'App',
-    components:{
+    components: {
       sideBar
     }
   }
@@ -29,13 +31,23 @@
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
-  .title-1{
+
+  .title-1 {
     font-size: 18px;
     font-weight: bold;
     padding: 10px;
   }
-  .codemirror{
+
+  .codemirror {
     width: 100%;
     height: 100%;
+  }
+</style>
+<style>
+  @media screen and (max-width: 1200px) {
+    #app {
+      padding-left: 0;
+      padding-top: 64px;
+    }
   }
 </style>

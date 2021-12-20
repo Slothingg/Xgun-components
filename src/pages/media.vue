@@ -7,36 +7,38 @@
       组件地址
     </titleSub>
     <text-sub class="col">
-      www.github.com
+      https://github.com/Slothingg/Xgun-components/uni_components/media.vue
     </text-sub>
     <titleSub class="col">
       适用范围
     </titleSub>
     <text-sub class="col">
-      此组件仅适用于uniapp（因为使用了rpx）,此处展示组件经过修改
+      此组件仅适用于uniapp（因为使用了rpx）,此处展示组件经过修改，最终效果请到uniapp上看
     </text-sub>
     <titleSub class="col">
-      效果展示
-      <titleSub class="col">
-        默认模板
-      </titleSub>
+      使用示例
     </titleSub>
     <div class="row">
       <text-sub>
         <codemirror class="codemirror" :value="code" :options="cmOptions"> </codemirror>
       </text-sub>
       <phone>
-        <media :item="item" :theme="theme" :backgroundUrl="backgroundUrl"></media>
+        <media class="media" :item="item" :theme="theme" :backgroundUrl="backgroundUrl">
+        </media>
       </phone>
     </div>
     <div class="title-1 col">
-      API
+      Api
     </div>
     <apiTable :data="apis"></apiTable>
     <div class="title-1 col">
-      EVENTS
+      Events
     </div>
     <eventTable :data="events"></eventTable>
+    <div class="title-1 col">
+      Slot
+    </div>
+    <slotTable :data="slots"></slotTable>
   </flexBox>
 </template>
 
@@ -56,7 +58,11 @@
           already_chat: false,
           num_chat: 0,
           already_share: false,
-          num_share: 0
+          num_share: 0,
+          comment: {
+            username: 'abc',
+            content: 'asddasdasasdasdasdsdasdasa'
+          }
         },
         theme: '#2d8cf0',
         backgroundUrl: 'url("../static/diwen.jpeg")',
@@ -71,10 +77,10 @@
             defalut: '{}'
           },
           {
-            porps: 'backgroundUrl',
-            instruction: '能更改窗口底部背景,格式URL(...)',
-            type: 'String',
-            defalut: ''
+            porps: 'order_tools',
+            instruction: '用于显示自定义底栏',
+            type: 'Boolean',
+            defalut: 'false'
           },
           {
             porps: 'theme',
@@ -83,31 +89,42 @@
             defalut: ''
           }
         ],
-        events:[{
-          events:'toUser',
-          instruction:'点击头像，用户名时触发',
-          ret:'返回窗口item'
-        },
-        {
-          events:'zan,cancel_zan',
-          instruction:'点赞，取消点赞时触发',
-          ret:'返回窗口item'
-        },
-        {
-          events:'follow',
-          instruction:'关注时触发',
-          ret:'返回窗口item'
-        },
-        {
-          events:'share',
-          instruction:'分享时触发',
-          ret:'返回窗口item'
-        }],
+        events: [{
+            events: 'toUser',
+            instruction: '点击头像，用户名时触发',
+            ret: '返回目标item'
+          },
+          {
+            events: 'zan,cancel_zan',
+            instruction: '点赞，取消点赞时触发',
+            ret: '返回目标item'
+          },
+          {
+            events: 'follow',
+            instruction: '关注时触发',
+            ret: '返回目标item'
+          },
+          {
+            events: 'share',
+            instruction: '分享时触发',
+            ret: '返回目标item'
+          }
+        ],
+        slots: [{
+            name: 'media',
+            instruction: '用于显示图片和视频等内容的插槽',
+          },
+          {
+            name: 'tool',
+            instruction: '用于显示自定义底栏的插槽（仅order_tools:true时有效）',
+          }
+        ],
         code: `
         <media :item="item" :theme="theme" :backgroundUrl="backgroundUrl"></media>
 
         backgroundUrl:'url("../static/diwen.jpeg")'
-        theme:'#2d8cf0',
+        theme:'#2d8cf0',//设置主题颜色
+        order_tools:false,//是否自定义底栏，默认禁止
         item: {
           avatar: '',
           time: '2020-12-12',
@@ -119,7 +136,11 @@
           already_chat: false,
           num_chat: 0,
           already_share: false,
-          num_share: 0
+          num_share: 0,
+          comment: { //用于显示一条评论（可选）
+            username: '',
+            content: ''
+          }
         }`
       }
     },
@@ -136,5 +157,14 @@
     display: flex;
     flex-direction: row;
 
+  }
+
+  @media screen and (max-width: 750px) {
+    .row {
+      flex-direction: column;
+    }
+    .xg-media-box .xg-media-head{
+      height: 120px !important;
+    }
   }
 </style>
