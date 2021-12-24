@@ -247,11 +247,12 @@
   .xg-media-content .content {
     width: 100%;
     height: auto;
-    display: inline-block;
+    display: flex;
     word-break: break-all;
     text-overflow: ellipsis;
     word-wrap: break-word;
     white-space: pre-wrap;
+    align-items: center;
   }
 
   .xg-media-box .comment {
@@ -313,7 +314,7 @@
 
   @media screen and (max-width: 750px) {
     .xg-media-box .xg-media-head{
-      height: 120px ;
+      height: 110px ;
     }
     .xg-media-box .xg-media-head{
       justify-content: space-between;
@@ -324,11 +325,21 @@
     .xg-media-content{
       font-size: 18px;
     }
+    .xg-media-head-buttom{
+      margin-right: 15px;
+    }
     .xg-media-head-buttom .buttom{
       height: 48px;
       width: 120px;
       line-height: 48px;
       font-size: 12px;
     }
+  }
+</style>
+
+<style>
+  .xg-media-content .content img{
+    width: 24px ;
+    height: 24px ;
   }
 </style>
