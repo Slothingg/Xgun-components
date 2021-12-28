@@ -15,4 +15,9 @@
     padding: 20px;
     padding-left: 10px;
   }
+  @media screen and (max-width: 750px) {
+    .text{
+      width: 100%;
+    }
+  }
 </style>

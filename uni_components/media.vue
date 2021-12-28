@@ -18,11 +18,15 @@
     <titleSub class="col">
       使用示例
     </titleSub>
-    <codemirror :value="code" :options="cmOptions"> </codemirror>
-    <phone>
-      <media class="media" :item="item" :theme="theme" :backgroundUrl="backgroundUrl">
-      </media>
-    </phone>
+    <div class="row">
+      <text-sub>
+        <codemirror class="codemirror" :value="code" :options="cmOptions"> </codemirror>
+      </text-sub>
+      <phone>
+        <media class="media" :item="item" :theme="theme" :backgroundUrl="backgroundUrl">
+        </media>
+      </phone>
+    </div>
     <div class="title-1 col">
       Api
     </div>
@@ -48,7 +52,7 @@
           time: '2020-12-12',
           username: 'balabala',
           already_follow: false,
-          content: `abcdeasdasdasdasdasdsadfg<img src="../../static/emoji.gif"><img src="../../static/emoji.gif"><img src="../../static/emoji.gif"><img src="../../static/emoji.gif">asdasdasdasd`,
+          content: `abcdefg<img src="../../static/emoji.gif"><img src="../../static/emoji.gif"><img src="../../static/emoji.gif"><img src="../../static/emoji.gif">`,
           already_zan: false, //是否已经点赞
           num_zan: 0,
           already_chat: false,
@@ -152,13 +156,11 @@
 
   }
 
-
   @media screen and (max-width: 750px) {
     .row {
       flex-direction: column;
     }
-
-    .xg-media-box .xg-media-head {
+    .xg-media-box .xg-media-head{
       height: 120px !important;
     }
   }

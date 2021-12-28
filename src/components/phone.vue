@@ -14,7 +14,7 @@
 <style scoped="scoped">
   .xg-phone{
     width: 180px;
-    height: 300px;
+    min-height: 300px;
     background: url(../../static/iPhone13.png) no-repeat;
     background-size: 100% 100%;
     padding-top: 25px;
@@ -23,8 +23,6 @@
     padding-bottom: 25px;
     display: flex;
     flex-direction: column;
-    justify-content: center;
-    align-items: center;
   }
   .content{
     width: 100%;
@@ -33,5 +31,11 @@
   }
   .content::-webkit-scrollbar{
     display:none
+  }
+  @media screen and (max-width: 750px) {
+    .xg-phone {
+      background: none;
+      width: 100%;
+    }
   }
 </style>
