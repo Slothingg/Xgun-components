@@ -13,7 +13,7 @@
         </div>
         <MenuItem v-for="i_child,index_child in i.sub_item" :key="index_child" :to="i_child.herf"
           :name="index+'-'+index_child">
-        <div class="title">
+        <div class="child-title">
           {{i_child.title}}
         </div>
         </MenuItem>
@@ -65,7 +65,9 @@
     background-color: white;
     transition: all 0.2s ease-in;
     z-index: 10;
+    padding-left: ;
   }
+
 
   .nav-list-on {
     height: auto !important;
@@ -91,7 +93,13 @@
     font-size: 0.1rem !important;
     margin-right: 10px;
   }
-
+  >>>.ivu-menu-vertical .ivu-menu-item{
+    padding-left: 0;
+  }
+  .child-title{
+    padding-left: 15px;
+    font-size: 8px;
+  }
   .menu-btn {
     position: fixed;
     right: 10px;
@@ -109,10 +117,13 @@
   >>>.ivu-menu {
     width: auto !important;
   }
-
+  >>>.ivu-menu-vertical .ivu-menu-submenu-title-icon{
+    right: 0;
+  }
   >>>.ivu-menu-vertical .ivu-menu-item,
   >>>.ivu-menu-vertical .ivu-menu-submenu-title {
     padding: 10px 15px;
+    padding-right: 0;
   }
 </style>
 

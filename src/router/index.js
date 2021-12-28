@@ -14,6 +14,11 @@ export default new Router({
       path: '/media',
       name: 'media',
       component: ()=>import("@/pages/media.vue")
+    },
+    {
+      path: '/bullet',
+      name: 'bullet',
+      component: ()=>import("@/pages/bullet.vue")
     }
   ]
 })

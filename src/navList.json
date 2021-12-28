@@ -7,6 +7,17 @@
       "sub_item":[]
     },
     {
+      "title":"Vue组件",
+      "herf":"",
+      "is_sub":true,
+      "sub_item":[
+        {
+          "title":"弹幕",
+          "herf":"/bullet"
+        }
+      ]
+    },
+    {
       "title":"移动端常用组件",
       "herf":"",
       "is_sub":true,
