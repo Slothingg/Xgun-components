@@ -48,7 +48,7 @@
           time: '2020-12-12',
           username: 'balabala',
           already_follow: false,
-          content: `abcdeasdasdasdasdasdsadfg<img src="../../static/emoji.gif"><img src="../../static/emoji.gif"><img src="../../static/emoji.gif"><img src="../../static/emoji.gif">asdasdasdasd`,
+          content: `abcdeasdfg<img src="../../static/emoji.gif"><img src="../../static/emoji.gif"><img src="../../static/emoji.gif"><img src="../../static/emoji.gif">asdasdasdasd`,
           already_zan: false, //是否已经点赞
           num_zan: 0,
           already_chat: false,
@@ -116,25 +116,28 @@
           }
         ],
         code: `
+        <media :item="item" :theme="theme" :backgroundUrl="backgroundUrl"></media>
+
+        backgroundUrl:'url("../static/diwen.jpeg")'
+        theme:'#2d8cf0',//设置主题颜色
+        order_tools:false,//是否自定义底栏，默认禁止
         item: {
           avatar: '',
           time: '2020-12-12',
           username: 'balabala',
           already_follow: false,
-          content: 'abcdefg<img src="../../static/emoji.gif"><img src="../../static/emoji.gif"><img src="../../static/emoji.gif"><img src="../../static/emoji.gif">',
-          already_zan: false, //是否已经点赞
+          content: 'abcdefg',
+          already_zan: false,
           num_zan: 0,
           already_chat: false,
           num_chat: 0,
           already_share: false,
           num_share: 0,
-          comment: {
-            username: 'abc',
-            content: 'asddasdasasdasdasdsdasdasa'
+          comment: { //用于显示一条评论（可选）
+            username: '',
+            content: ''
           }
-        },
-        theme: '#2d8cf0',
-        backgroundUrl: 'url("../static/diwen.jpeg")'`
+        }`
       }
     },
     components: {}

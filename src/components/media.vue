@@ -1,5 +1,5 @@
 <template>
-  <div class="xg-media-box" :style="'background:'+backgroundUrl">
+  <div class="xg-media-box" :style="'background:'+backgroundUrl +' no-repeat 0 0'">
     <div class="xg-media-head">
       <div class="xg-media-head-avatar">
         <img :src="item.avatar" v-if="item.avatar" class="avatar" @click.stop="toUser">
@@ -152,7 +152,7 @@
     -ms-user-select: none;
 
     user-select: none;
-    background-size: 100% 100%;
+    background-size: 100% 100% !important;
   }
 
   .xg-media-box .xg-media-head {
@@ -234,6 +234,36 @@
     white-space: pre-wrap;
   }
 
+  .xg-media-box .comment {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    min-height: 24px;
+    width: 90%;
+    margin-left: 10px;
+    border-left: solid 2px #b4b4b4;
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+  }
+
+  .xg-media-box .comment .svg {
+    width: 12px;
+    height: 12px;
+    color: #4a4a4a;
+    margin-left: 10px;
+    margin-right: 10px;
+  }
+
+  .xg-media-box .comment .comment-content {
+    max-height: 48px;
+    width: 100%;
+    display: inline-block;
+    word-break: break-all;
+    text-overflow: ellipsis;
+    word-wrap: break-word;
+    white-space: pre-wrap;
+  }
+
   .xg-media-foot {
     display: flex;
     flex-direction: row;
@@ -258,6 +288,32 @@
 </style>
 
 <style scoped>
-  @media screen and (min-width:750px) {
+
+  @media screen and (max-width: 750px) {
+    .xg-media-box .xg-media-head{
+      height: 120px ;
+    }
+    .xg-media-box .xg-media-head{
+      justify-content: space-between;
+    }
+    .xg-media-foot{
+      height: 80px;
+    }
+    .xg-media-content{
+      font-size: 18px;
+    }
+    .xg-media-head-buttom .buttom{
+      height: 48px;
+      width: 120px;
+      line-height: 48px;
+      font-size: 12px;
+    }
+  }
+</style>
+<style>
+  .xg-media-content img {
+    width: 18px;
+    height: 18px;
+    display: inline-block;
   }
 </style>
