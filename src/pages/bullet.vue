@@ -7,7 +7,7 @@
       组件地址
     </titleSub>
     <text-sub>
-      www.github.com
+      https://github.com/Slothingg/Xgun-components/vue-components/bullet.vue
     </text-sub>
     <titleSub>
       适用范围
