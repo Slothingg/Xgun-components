@@ -27,6 +27,10 @@
       Api
     </div>
     <apiTable :data="apis"></apiTable>
+    <div class="title-1 col">
+      Events
+    </div>
+    <eventTable :data="events"></eventTable>
   </flexBox>
 </template>
 
@@ -50,7 +54,7 @@
         },
         apis: [{
             porps: 'item',
-            instruction: '动态接收弹幕数组,子元素需为对象并包含text属性用于显示弹幕，如数组(data:[{...,text:"abc"}])',
+            instruction: '动态接收弹幕数组,子元素需为对象并包含text属性用于显示弹幕或者返回对象，如数组(data:[{...,text:"abc"}])',
             type: 'Array',
             defalut: '{}'
           },
@@ -58,13 +62,19 @@
             porps: 'canvasWidth',
             instruction: '定义画布宽度(px)',
             type: 'Number',
-            defalut: '750px'
+            defalut: '750'
           },
           {
             porps: 'canvasHeight',
             instruction: '定义画布高度(px)',
             type: 'Number',
             defalut: '300'
+          },
+          {
+            porps: 'duration',
+            instruction: '每条弹幕滚动时间(秒)',
+            type: 'Number',
+            defalut: '5'
           },
           {
             porps: 'zIndex',
@@ -77,6 +87,17 @@
             instruction: '定义弹幕字体大小(px)',
             type: 'Number',
             defalut: '15'
+          }
+        ],
+        events: [{
+            events: 'clickItem',
+            instruction: '点击弹幕时触发',
+            ret: '返回目标item'
+          },
+          {
+            events: 'doubleClick',
+            instruction: '双击触发',
+            ret: ''
           }
         ]
       }

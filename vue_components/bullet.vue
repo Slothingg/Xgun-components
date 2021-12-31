@@ -1,5 +1,5 @@
 <template>
-  <canvas id="xg-canvas" ref="xg-canvas" :style="'z-index: '+ zIndex"></canvas>
+  <canvas ref="xg-canvas" :style="'z-index: '+ zIndex" @click="click($event)"></canvas>
 </template>
 
 <script>
@@ -9,9 +9,10 @@
         canvas: '',
         canvasContext2d: '',
         map: [], //渲染地图
-        interval: -10, //弹幕间隔
-        topInterval: 5, //弹幕上方间隔
-        spead: 1
+        interval: 0, //弹幕间隔
+        topInterval: 8, //弹幕上方间隔
+        double_click:false ,//双击事件
+        choice_item:''
       }
     },
     mounted() {
@@ -26,7 +27,7 @@
       this.draw()
     },
     computed: {
-      bullet_data(){
+      bullet_data() {
         return this.item;
       },
       screen_height() {
@@ -39,23 +40,28 @@
     watch: {
       bullet_data: {
         handler(newValue) {
-          this.pushMap(newValue[newValue.length-1].text)
+          this.pushMap(newValue[newValue.length - 1].text)
         },
         deep: true
       }
     },
     methods: {
-      map_occupy(y_index) {
+      map_occupy(y_index, spead) {
         let check = false;
+
         for (let i in this.map) {
-          if (this.map[i].y == y_index && this.map[i].x >= this.screen_width - this.map[i].textWdith + this
-            .interval) { //当当前泳道存在弹幕并且没有完全出道时
+          //在同一Y轴且如果没有完全出栈
+          if ((this.map[i]._y == y_index && this.map[i]._x + this.map[i].textWdith - this.interval > this.screen_width)||
+            (this.map[i]._y == y_index && (Math.abs(this.map[i].spead - spead) * (this.duration * 1000 / 10) > Math.abs(
+              this.map[i]._x + this.map[i].textWdith - this.screen_width) && this.map[i].spead <= spead))) {
+            //判断在持续期间弹幕是否会追尾（速度差判断）
             check = true;
+            return check;
           }
         }
         return check;
       },
-      get_lane() {
+      get_lane(spead) {
         return new Promise(resolve => {
           let y = 0;
           let lane = 1; //默认为第一道
@@ -63,22 +69,29 @@
             y = lane * (this.fontSize + this.topInterval)
             lane++;
             lane %= Math.floor(this.screen_height / (this.fontSize + this.topInterval))
-            if (!this.map_occupy(y)) {
+            if (!this.map_occupy(y, spead)) {
               clearInterval(timer);
-              resolve(y)
+              resolve({
+                y: y,
+                spead: spead
+              })
             }
-          }, 100)
+          }, 10)
         })
       },
       pushMap(value) { //添加弹幕
         let config = this.canvasContext2d.measureText(value);
         let x_index = this.screen_width
-        this.get_lane().then(res => {
+        let spead = (this.screen_width + config.width) / this.duration / 100
+        this.get_lane(spead).then(res => { //异步获得y坐标
           let obj = {
             text: value,
             textWdith: config.width,
-            x: x_index,
-            y: res
+            _x: x_index,
+            _y: res.y,
+            spead: res.spead,
+            spead_bk: res.spead,
+
           }
           this.map.push(obj)
         })
@@ -90,47 +103,83 @@
         this.canvas.clearRect(0, 0, this.screen_width, this.screen_height)
       },
       draw() {
+        let time = 0;
         setInterval(() => {
           this.canvasContext2d.clearRect(0, 0, this.screen_width, this.screen_height)
+          time += 0.01
           for (let i in this.map) {
-            this.drawText(this.map[i].text, this.map[i].x, this.map[i].y)
+            this.drawText(this.map[i].text, this.map[i]._x, this.map[i]._y)
           }
           for (let i in this.map) {
-            this.map[i].x -= this.spead
-            if(this.map[i].x <= 0 - this.map[i].textWdith){
-              this.map.splice(i,1)
+            this.map[i]._x -= this.map[i].spead
+            if (this.map[i]._x <= 0 - this.map[i].textWdith) {
+              this.map.splice(i, 1)
             }
           }
         }, 10)
+      },
+      item_cheackbox(item,x,y){//检查弹幕位置
+        let check = false;
+        if(x<item._x + item.textWdith && y<item._y + this.fontSize && x>item._x && y>item._y){
+          check = true;
+        }
+        return check;
+      },
+      click(event){
+        if(!this.choice_item){
+          let rect = this.canvas.getBoundingClientRect();
+          //点击相对于盒子的坐标
+          let x = (event.clientX - rect.left) * (this.canvas.width / rect.width);
+          let y = (event.clientY - rect.top ) * (this.canvas.height / rect.height) + this.fontSize;
+          for(let i of this.map){
+            if(this.item_cheackbox(i,x,y)){
+              i.spead = 0; //捕捉弹幕
+              this.choice_item = i;
+              this.$emit('clickItem',i)
+              break;
+            }
+          }
+        }else if(!this.double_click){
+          this.double_click = true;
+          this.choice_item.spead = this.choice_item.spead_bk //释放弹幕
+          this.choice_item = null;
+          setTimeout(()=>{
+            this.double_click = false;
+          },300)
+        }else{
+          console.log('双击')
+          this.$emit('doubleClick');
+        }
       }
     },
     props: {
       item: {
         type: Array,
-        required:true
+        required: true,
       },
       canvasWidth: {
         type: Number,
         default: 750
       },
-      canvasHeight:{
+      canvasHeight: {
         type: Number,
-        default:300
+        default: 300
       },
-      zIndex:{
-        type:Number,
-        default:10
+      zIndex: {
+        type: Number,
+        default: 10
       },
-      fontSize:{
+      fontSize: {
+        type: Number,
+        default: 15
+      },
+      duration:{
         type:Number,
-        default:15
+        default:5
       }
     }
   }
 </script>
 
 <style scoped>
-  #xg-canvas {
-    min-height: 1rem;
-  }
 </style>
